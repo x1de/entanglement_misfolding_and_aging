@@ -135,6 +135,15 @@ Quyen V. Vu<sup>1</sup>, Ian Sitarik<sup>2,3</sup>, Daniel A. Nissley<sup>2,3</s
 
 *Maintainer (code/data): [qzv5006@psu.edu](mailto:qzv5006@psu.edu) or [vuqv.phys@gmail.com*](mailto:vuqv.phys@gmail.com)
 
+## Troubleshooting and known issues
+
+When re-running the notebooks you may see two non-routine warnings; here is what each means and how it affects the results:
+
+- `statistical_association/notebook/1_1_SC_Ent_Residue_level.ipynb` stores a pandas `SettingWithCopyWarning` ("A value is trying to be set on a copy of a slice from a DataFrame") when cell 5 adds the `length_z` column to `df`, which cell 4 filtered from the full table with `df = df_all[df_all['entangled']==1]`. The warning means pandas cannot tell whether the assignment modified `df` or a temporary copy. In the stored run the column was created and used (the cells that follow read `length_z` without raising an error), so the stored results are unaffected. When re-running, you can remove the ambiguity and the warning by selecting an explicit copy in cell 4 (`df = df_all[df_all['entangled']==1].copy()`), then re-run and confirm the outputs are unchanged.
+- `statistical_association/notebook/2_Association_structural_change_abundance_increase.ipynb` stores a numpy `RuntimeWarning: divide by zero encountered in log2` when cell 14 computes `df['log2FC'] = np.log2(df['FC_norm'])`: proteins whose normalized fold-change `FC_norm` is exactly 0 get `log2FC = -inf`. The association statistics are unaffected — `Abd_up` is classified from `FC_norm > 1` and `Pvalue < 0.01`, and the Fisher exact test and logistic regression in cell 16 use `Abd_up`, not `log2FC` — but the volcano plot in cell 18 plots `log2FC` on a fixed x-range, so those proteins are silently omitted from the figure. List them with `df[np.isinf(df['log2FC'])]` to check which proteins are affected.
+
+Routine messages (deprecation notices, matplotlib font-cache notices, progress output) can be ignored. For problems not listed here, contact the code/data maintainer listed under "Authors" above.
+
 ## How to cite
 
 If you use this repository's code or data in your work, please cite the repository using the ready-to-use metadata in [CITATION.cff](CITATION.cff), and cite the original publications of the two upstream datasets (the Molecular Cell LiP-MS dataset and the JMB entanglement dataset, linked under "Data overview" above). A journal reference for the manuscript describing this work will be added here once it is published.
