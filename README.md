@@ -133,3 +133,9 @@ If you use these datasets in your work, please cite:
 > [Citation placeholder - add full bibliographic reference when published (journal, volume, pages, year, DOI).]
 
 This work was supported by the National Science Foundation National Synthesis Center for the Emergence of Molecular and Cellular Sciences (NCEMS, DBI-2335029).
+
+## License
+
+This repository is licensed under the GNU General Public License v3.0 (GPL-3.0); see [LICENSE](LICENSE) for the full license text.
+
+In addition, any reuse or redistribution of this repository or its contents must attribute NCEMS as described in [ATTRIBUTION.md](ATTRIBUTION.md).
