@@ -50,6 +50,15 @@ This project uses two primary input datasets for the association analyses.
 
 The above inputs are integrated into single pickle file datasets: `statistical_association/data/SC_Ent.pkl`
 
+### Terms and constraints on upstream data and third-party components
+
+The repository includes processed files derived from the two upstream datasets (`statistical_association/data/SC_Ent.pkl` and `statistical_association/data/protein_abundances/`), so use and redistribution of those files, and of results derived from them, are subject to the terms of the original datasets:
+
+- **LiP-MS data** ([Molecular Cell dataset](https://linkinghub.elsevier.com/retrieve/pii/S1097276523006512)): <terms of use as stated in that publication's data availability statement, for example the license the deposited data carry, or "no restrictions beyond citing the original publication">.
+- **Entanglement data** ([JMB dataset](https://www.sciencedirect.com/science/article/abs/pii/S0022283624000251?via%3Dihub)): <terms of use as stated in that publication's data availability statement>.
+
+Third-party software: all code in this repository was written for this project; no third-party code is vendored in. Dependencies are installed from `bioenv.yml` and are distributed under ordinary open-source licenses; none is academic-only, non-commercial, or registration-required, so no restrictions beyond their license terms apply to their use or redistribution.
+
 
 
 ## Installation
