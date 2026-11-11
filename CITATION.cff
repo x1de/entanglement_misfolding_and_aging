@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this repository's code or data in your work, please cite it using this metadata."
+title: "Native entanglement misfolding contributes to age-associated structural changes across the Saccharomyces cerevisiae proteome"
+authors:
+  - family-names: Vu
+    given-names: Quyen V.
+  - family-names: Sitarik
+    given-names: Ian
+  - family-names: Nissley
+    given-names: Daniel A.
+  - family-names: O'Brien
+    given-names: Edward P.
+type: software
+license: GPL-3.0
+repository-code: "https://github.com/obrien-lab/entanglement_misfolding_and_aging"
+version: "d9e5001b212adb92c9a176186a258354aae71b13"  # current commit; replace with a release tag if one is created
+# For the authors to complete when committing:
+#   - add "date-released" with the release date as YYYY-MM-DD (a required field for CFF 1.2.0 type: software),
+#   - add "doi" once a DOI is minted for the repository (e.g. via Zenodo) or the paper is published (journal DOI).

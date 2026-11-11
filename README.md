@@ -128,11 +128,9 @@ Quyen V. Vu<sup>1</sup>, Ian Sitarik<sup>2,3</sup>, Daniel A. Nissley<sup>2,3</s
 
 ## How to cite
 
-If you use these datasets in your work, please cite:
+If you use this repository's code or data in your work, please cite the repository using the ready-to-use metadata in [CITATION.cff](CITATION.cff), and cite the original publications of the two upstream datasets (the Molecular Cell LiP-MS dataset and the JMB entanglement dataset, linked under "Data overview" above). A journal reference for the manuscript describing this work will be added here once it is published.
 
-> [Citation placeholder - add full bibliographic reference when published (journal, volume, pages, year, DOI).]
-
-This work was supported by the National Science Foundation National Synthesis Center for the Emergence of Molecular and Cellular Sciences (NCEMS, DBI-2335029).
+This work was supported by the National Science Foundation (NSF) through the NSF National Synthesis Center for Emergence in the Molecular and Cellular Sciences (NCEMS) under Grant NSF MCB-2335029.
 
 ## License
 
