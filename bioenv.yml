@@ -39,6 +39,7 @@ dependencies:
   - mdtraj
   - openmm=8.0
   - deeptime
+  - parmed
 
   # Jupyter
   - ipywidgets
