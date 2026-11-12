@@ -2,6 +2,20 @@
 
 Coarse-grained (CG) simulation scripts, preparation notebooks, and analysis workflows for protein folding and entanglement.
 
+## Data provenance
+
+The per-protein input structures (`<UniProt>_clean.pdb`, one all-atom file
+in the `template/setup/` folder of each of the 24 `sc_ent/` and 24
+`nsc_nent/` protein folders) come from <Authors: state the source — e.g.
+AlphaFold DB release and retrieval date, or the experimental/PDB entries
+used — and list or reference the UniProt accession set>. They were prepared
+by <Authors: describe the cleaning/preparation steps — what was removed or
+renamed (e.g. hydrogens, missing residues), whether pLDDT scores are kept
+in the B-factor column, and which script performed the preparation>. The CG
+model files (`*_clean_ca.psf/.cor/.top`,
+`*_clean_nscal1_fnn1_go_bt.prm/.xml`) are derived from these structures by
+the CG model builder recorded in each `create_model/go_model.log`.
+
 
 
 ## Primary entry points

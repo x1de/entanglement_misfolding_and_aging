@@ -50,6 +50,15 @@ This project uses two primary input datasets for the association analyses.
 
 The above inputs are integrated into single pickle file datasets: `statistical_association/data/SC_Ent.pkl`
 
+`SC_Ent.pkl` is a derived dataset: it was generated from the two raw input
+datasets above by <Authors: describe the integration — which raw tables/files
+from the LiP-MS and entanglement sources were used; what filtering,
+normalization and significance thresholds were applied; how the two sources
+were matched (join key); how `SC`, `entangled`, `length_AF`,
+`clustered_entangled_residues`, `Cutsite_residues` and `sasa_per_residue`
+were computed. If a script or notebook performed the integration, add it to
+the repository and reference it here instead of the description.>
+
 ### Terms and constraints on upstream data and third-party components
 
 The repository includes processed files derived from the two upstream datasets (`statistical_association/data/SC_Ent.pkl` and `statistical_association/data/protein_abundances/`), so use and redistribution of those files, and of results derived from them, are subject to the terms of the original datasets:
