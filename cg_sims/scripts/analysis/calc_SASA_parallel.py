@@ -1,3 +1,17 @@
+"""
+Compute the per-residue solvent-accessible surface area (SASA) of the 50
+all-atom backmapped trajectories.
+
+For each trajectory folder <i> the script loads aa_<i>.dcd with topology
+aa_<i>.psf, raises an error if either file is missing, checks that the
+trajectory has the expected 20000 frames, and computes the per-residue SASA
+of every 10th frame with mdtraj's Shrake-Rupley algorithm. Each result is
+saved to SASA/sasa_<i>.npy; after all 50 trajectories are processed, the
+results are stacked and saved as SASA/SASA.npy. Trajectories are processed
+in parallel with a multiprocessing.Pool, and the residue count is read from
+the template topology ../template/setup/top.psf.
+"""
+
 import os
 import mdtraj as md
 import numpy as np

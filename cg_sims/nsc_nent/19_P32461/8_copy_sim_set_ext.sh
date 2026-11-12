@@ -1,5 +1,9 @@
  
 #!/bin/bash
+# Step 8 (optional): prepare extended simulations. Copy job_cg_ext.sh and
+# control_ext.cntrl from template/ into each trajectory folder and replace
+# SETINDEX with the folder index. Only needed when simulations must run
+# longer than the run length set in control.cntrl (1.5 microseconds).
 cur_dir=`pwd`
 for i in {0..49}
 do

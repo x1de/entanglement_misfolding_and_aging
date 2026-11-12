@@ -1,5 +1,8 @@
  
 #!/bin/bash
+# Step 3: prepare GQ entanglement scripts. Copy job_GQ.sh, job_GQ_mgc.sh and
+# job_GQ_open.sh from template/ into each trajectory folder and replace
+# SETINDEX with the folder index.
 cur_dir=`pwd`
 for i in {0..49}
 do
