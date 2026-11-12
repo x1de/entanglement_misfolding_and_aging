@@ -79,7 +79,7 @@ Third-party software: all code in this repository was written for this project; 
 
 - [Conda/Miniconda](https://docs.conda.io/en/latest/miniconda.html)
 
-All required packages are listed in `bioenv.yml`.
+All required packages are listed in `bioenv.yml`; the coarse-grained MD production and extended-MD steps (steps 2 and 9 of `cg_sims/README.md`) additionally run in the `cg_toolkit` environment defined in `cg_toolkit.yml`.
 
 ### Setup
 
@@ -90,6 +90,15 @@ All required packages are listed in `bioenv.yml`.
 conda env create -f bioenv.yml
 conda activate bioenv
 ```
+
+3. For the coarse-grained MD steps, also create and activate their environment:
+
+```bash
+conda env create -f cg_toolkit.yml
+conda activate cg_toolkit
+```
+
+`cg_sims/scripts/job.sh` and `cg_sims/scripts/job_cg_ext.sh` activate this environment for the production and extended-MD runs (steps 2 and 9 of `cg_sims/README.md`).
 
 ## Reproducing results
 
