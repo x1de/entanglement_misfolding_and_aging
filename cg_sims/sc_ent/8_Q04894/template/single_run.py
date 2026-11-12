@@ -1,4 +1,86 @@
 #!/usr/bin/env python3
+# ---------------------------------------------------------------------------
+# Run provenance: appends the command line, the contents of any control file
+# named on the command line, start/stop clock times, interpreter and package
+# versions, and sha256 checksums of the files named on the command line and
+# of every file this run wrote, to single_run_provenance.log in the folder
+# the run starts from. Records never stop the step; end-of-run records run
+# via atexit.
+# ---------------------------------------------------------------------------
+import sys
+import os
+import time
+import hashlib
+import atexit
+
+_PROV_T0 = time.time()
+_PROV_LOG = "single_run_provenance.log"
+
+
+def _prov_write(line):
+    try:
+        with open(_PROV_LOG, "a") as _fh:
+            _fh.write(time.strftime("%Y-%m-%dT%H:%M:%S ") + line + "\n")
+    except Exception:
+        pass
+
+
+def _prov_sha256(path):
+    _h = hashlib.sha256()
+    with open(path, "rb") as _fh:
+        for _chunk in iter(lambda: _fh.read(1 << 20), b""):
+            _h.update(_chunk)
+    return _h.hexdigest()
+
+
+def _prov_finish():
+    _prov_write(
+        f"stop: {time.strftime('%Y-%m-%dT%H:%M:%S')} wall_s={time.time() - _PROV_T0:.1f}"
+    )
+    _prov_write("python: " + sys.version.replace("\n", " "))
+    try:
+        from importlib.metadata import distributions
+
+        _pkgs = sorted(
+            f"{_d.metadata['Name']}=={_d.version}"
+            for _d in distributions()
+            if _d.metadata and _d.metadata.get("Name")
+        )
+        _prov_write("packages: " + "; ".join(_pkgs))
+    except Exception:
+        pass
+    for _a in sys.argv:
+        try:
+            if os.path.isfile(_a):
+                _prov_write(f"sha256 input {_a}: {_prov_sha256(_a)}")
+        except Exception:
+            pass
+    try:
+        for _n in sorted(os.listdir(".")):
+            if _n == _PROV_LOG:
+                continue
+            _p = os.path.join(".", _n)
+            if os.path.isfile(_p) and os.path.getmtime(_p) >= _PROV_T0:
+                _prov_write(f"sha256 output {_n}: {_prov_sha256(_p)}")
+    except Exception:
+        pass
+
+
+atexit.register(_prov_finish)
+_prov_write(f"start: {time.strftime('%Y-%m-%dT%H:%M:%S')}")
+_prov_write("command: " + " ".join(sys.argv))
+for _a in sys.argv[1:]:
+    try:
+        if os.path.isfile(_a) and os.path.getsize(_a) < 100000:
+            _prov_write(f"--- contents of {_a} ---")
+            with open(_a) as _cf:
+                for _line in _cf:
+                    _prov_write(f"{_a}: {_line.rstrip()}")
+    except Exception:
+        pass
+# ---------------------------------------------------------------------------
+# End of run-provenance block; the original script continues below.
+# ---------------------------------------------------------------------------
 import getopt
 import time
 from distutils.util import strtobool
