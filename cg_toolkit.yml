@@ -1,0 +1,18 @@
+# Conda environment for the coarse-grained MD production and extended-MD steps
+# (documented steps 2 and 9 of cg_sims/README.md), activated by
+# cg_sims/scripts/job.sh and cg_sims/scripts/job_cg_ext.sh.
+#
+# Package list and python version to be confirmed against the cluster
+# environment with `conda list -n cg_toolkit` (keep any additional packages
+# that environment really contains), then pin the versions.
+
+name: cg_toolkit
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python
+  - numpy
+  - parmed
+  - openmm
