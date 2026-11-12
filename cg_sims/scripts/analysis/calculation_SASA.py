@@ -112,3 +112,7 @@ for i in range(n_trajs):
 # save to disk
 np.save('SASA.npy', all_sasa)
 print("Finished. SASA.npy saved.")
+
+# record the run's settings in the provenance log
+_prov_write(f"setting n_trajs = {n_trajs}")
+_prov_write(f"setting n_frames = {n_frames}")
