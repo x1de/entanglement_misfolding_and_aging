@@ -6,10 +6,10 @@ Coarse-grained (CG) simulation scripts, preparation notebooks, and analysis work
 
 The per-protein input structures (`<UniProt>_clean.pdb`, one all-atom file
 in the `template/setup/` folder of each of the 24 `sc_ent/` and 24
-`nsc_nent/` protein folders) come from <Authors: state the source — e.g.
+`nsc_nent/` protein folders) come from <AUTHORS: source — e.g.
 AlphaFold DB release and retrieval date, or the experimental/PDB entries
 used — and list or reference the UniProt accession set>. They were prepared
-by <Authors: describe the cleaning/preparation steps — what was removed or
+by <AUTHORS: cleaning/preparation steps — what was removed or
 renamed (e.g. hydrogens, missing residues), whether pLDDT scores are kept
 in the B-factor column, and which script performed the preparation>. The CG
 model files (`*_clean_ca.psf/.cor/.top`,
@@ -147,7 +147,7 @@ structure ranges and all-atom PDB to `GQ.py` (`-psf`, `-cor`, `-sec`, `--aa`).
 | `<UniProt>_clean_nscal1_fnn1_go_bt.xml` | OpenMM XML | OpenMM `ForceField` definition (particles, bonds, angles, Go contact terms); `single_run.py` loads it as `prmfile` (`ForceField(prmfile)`) and creates the simulation `System` from it. |
 | `secondary_struc_defs.txt` | whitespace-delimited text, one row per element | Secondary-structure element ranges. Column 1: sequential element number (not used by the parsers). Column 2: first residue of the element (1-based). Column 3: last residue (inclusive). Both `single_run.py` (builds `sec_strc_def` from `words[1]`, `words[2]`) and `GQ.load_secondary_structure_ranges` (takes `parts[1]`, `parts[2]`) read columns 2–3; residues inside these ranges select which native contacts count (toward Q in `single_run.py`, and toward the native contact set of the entanglement analysis in `GQ.py`). |
 | `create_model/go_model.cntrl` | text | Control file for the CG model builder: `pdbfile` (input all-atom structure), `casm`, `potential_name` (`bt`), `domain_file` (`domain_def.dat`). |
-| `create_model/domain_def.dat` | text | Model-builder domain definitions: `domain = <first>-<last>` gives the residue range of each domain (in the example folder `sc_ent/0_P05744`, residues 1–107, the whole protein); `scale factor = <x>` is a per-domain scaling parameter <Authors: confirm its exact use in the model builder — go_model.log notes that `nscal` is ignored when a domain file is given>. |
+| `create_model/domain_def.dat` | text | Model-builder domain definitions: `domain = <first>-<last>` gives the residue range of each domain (in the example folder `sc_ent/0_P05744`, residues 1–107, the whole protein); `scale factor = <x>` is a per-domain scaling parameter <AUTHORS: confirmed exact use of the per-domain scale factor in the model builder>. |
 | `create_model/go_model.log` | text | Record of the model build: configuration echoed, domains parsed, native-contact counts, STRIDE hydrogen bonds, and the files written (psf, cor, top, prm). |
 
 The `create_model/` folder also holds same-named copies of the built model

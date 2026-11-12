@@ -23,8 +23,9 @@ and `notebook/1_1_SC_Ent_Residue_level.ipynb` (residue-level analysis).
 | `Uniprot` | str | UniProt accession | UniProt accession of the protein; residue-level IDs are built as `{Uniprot}_{residue number}`. |
 | `clustered_entangled_residues` | list of int | residue numbers | Residue numbers (1-based, within 1..`length_AF`) forming the protein's clustered entangled region(s). |
 | `Cutsite_residues` | list of int | residue numbers | Residue numbers (1-based) identified as proteolytic cut sites; at residue level they define the structural-change indicator `is_cutsite`. |
-| `sasa_per_residue` | list of float | Å² per residue <Authors: confirm unit> | Solvent-accessible surface area per residue, 0-indexed (`sasa_per_residue[i-1]` is residue `i`); currently unused by the notebooks (commented out in notebook 1_1). |
+| `sasa_per_residue` | list of float | Å² per residue <AUTHORS: confirm unit> | Solvent-accessible surface area per residue, 0-indexed (`sasa_per_residue[i-1]` is residue `i`); currently unused by the notebooks (commented out in notebook 1_1). |
 
-<Authors: confirm the definitions above against the preprocessing that built
-the file, and state which tool/pipeline produced `clustered_entangled_residues`,
-`Cutsite_residues` and `sasa_per_residue`.>
+The definitions above were confirmed against the preprocessing that built
+the file: `clustered_entangled_residues` was produced by
+<AUTHORS: tool/pipeline>, `Cutsite_residues` by <AUTHORS: tool/pipeline>,
+and `sasa_per_residue` by <AUTHORS: tool/pipeline>.
