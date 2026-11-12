@@ -1,4 +1,79 @@
 #!/usr/bin/env python3
+# ---------------------------------------------------------------------------
+# Run provenance: records the software versions used by this run (interpreter
+# and installed packages) and sha256 checksums of the .Q, .EntInfo.pkl and .G
+# outputs it writes, in the run log GQ.py already keeps
+# (<outpath>/logs/<outname>.log). Records never stop the step; they run via
+# atexit, once main() has configured logging and the outputs are saved.
+# ---------------------------------------------------------------------------
+import atexit
+import hashlib
+import logging
+import os
+import platform
+import sys
+from importlib.metadata import distributions
+
+
+def _prov_arg(flag):
+    """Return the value of a command-line flag (flag value or flag=value)."""
+    for _i, _a in enumerate(sys.argv[1:], 1):
+        if _a == flag and _i + 1 < len(sys.argv):
+            return sys.argv[_i + 1]
+        if _a.startswith(flag + "="):
+            return _a.split("=", 1)[1]
+    return None
+
+
+def _prov_sha256(path):
+    _h = hashlib.sha256()
+    with open(path, "rb") as _fh:
+        for _chunk in iter(lambda: _fh.read(1 << 20), b""):
+            _h.update(_chunk)
+    return _h.hexdigest()
+
+
+def _prov_finish():
+    # pool workers of the ProcessPoolExecutor must not write this run's records
+    try:
+        import multiprocessing
+
+        if multiprocessing.current_process().name != "MainProcess":
+            return
+    except Exception:
+        pass
+    # record the software versions used by this run
+    try:
+        logging.info(f"python: {platform.python_version()}")
+        _pkgs = sorted(
+            f"{_d.metadata['Name']}=={_d.version}"
+            for _d in distributions()
+            if _d.metadata and _d.metadata.get("Name")
+        )
+        logging.info("packages: " + "; ".join(_pkgs))
+    except Exception:
+        pass
+    # record sha256 checksums of the .Q, .EntInfo.pkl and .G outputs of this run
+    _outpath = _prov_arg("-op") or _prov_arg("--outpath")
+    _outname = _prov_arg("-on") or _prov_arg("--outname")
+    if _outpath and _outname:
+        for _rel in (
+            os.path.join("Q", f"{_outname}.Q"),
+            os.path.join("G", f"{_outname}.EntInfo.pkl"),
+            os.path.join("G", f"{_outname}.G"),
+        ):
+            try:
+                _outfile = os.path.join(_outpath, _rel)
+                if os.path.isfile(_outfile):
+                    logging.info(f"sha256 {_outfile}: {_prov_sha256(_outfile)}")
+            except Exception:
+                pass
+
+
+atexit.register(_prov_finish)
+# ---------------------------------------------------------------------------
+# End of run-provenance block; the original script continues below.
+# ---------------------------------------------------------------------------
 import argparse
 # from topoly import lasso_type  # used pip
 import concurrent.futures
