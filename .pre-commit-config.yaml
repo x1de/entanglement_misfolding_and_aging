@@ -1,0 +1,27 @@
+# Formatter and linter configuration. Python: black (matches the style of
+# cg_sims/scripts/single_run.py and GQ.py). Shell: shfmt -i 4 (matches the
+# 4-space style of 5_check_md_finish.sh and 6_check_GQ.sh) and shellcheck.
+# The generated per-protein copies under cg_sims/sc_ent/ and cg_sims/nsc_nent/
+# are excluded, like other generated files.
+#
+# One-time setup and run:
+#   pip install pre-commit
+#   pre-commit run --all-files
+# To check on every commit afterwards: pre-commit install
+repos:
+  - repo: https://github.com/psf/black
+    rev: 26.10.1
+    hooks:
+      - id: black
+        exclude: ^cg_sims/(sc_ent|nsc_nent)/
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.14.1-1
+    hooks:
+      - id: shfmt
+        args: ["-i", "4"]
+        exclude: ^cg_sims/(sc_ent|nsc_nent)/
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1-1
+    hooks:
+      - id: shellcheck
+        exclude: ^cg_sims/(sc_ent|nsc_nent)/

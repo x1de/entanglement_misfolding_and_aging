@@ -1,3 +1,18 @@
+"""
+Combine the per-trajectory Q (native-contact fraction) and G (Gauss linking
+number) time series of the 50 simulated copies into one array, and plot
+free-energy profiles from the pooled values.
+
+For each trajectory folder <i> (except any index listed in skip_index) the
+script reads ../<i>/GQ/Q/{i}.Q and ../<i>/GQ/G/{i}.G (comma-delimited, one
+header row), takes their last column as the frame-wise fQ and fG values,
+warns if a file does not have the expected 19999 rows, and stacks the
+(19999, 2) [fQ, fG] arrays into QG_all, which is saved as QG.npy. It then
+computes F = -ln P histograms of the pooled Q values and of the pooled G
+values and saves the free-energy landscapes as Q_free_energy.png and
+G_free_energy.png.
+"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
